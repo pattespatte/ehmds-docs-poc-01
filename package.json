@@ -1,0 +1,95 @@
+{
+  "name": "@ehmds/design-system",
+  "version": "1.0.0",
+  "description": "EHM Design System - A Vue 3 design system based on FKUI",
+  "main": "dist/ehmds.umd.js",
+  "module": "dist/ehmds.es.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "demo": "vite --config demo/vite.config.js",
+    "demo:preview": "vite preview --config demo/vite.config.js",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "update:fkui-deps": "node scripts/update-fkui-deps.js",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "histoire:dev": "histoire dev",
+    "histoire:build": "histoire build",
+    "histoire:preview": "histoire preview",
+    "build:all": "npm run docs:build && npm run build-storybook && npm run histoire:build",
+    "deploy": "bash scripts/deploy.sh"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "design-system",
+    "ui-components",
+    "fkui",
+    "ehmds"
+  ],
+  "author": "EHMDS Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@fkui/date": "^6.36.0",
+    "@fkui/design": "^6.36.1",
+    "@fkui/logic": "^6.36.1",
+    "@fkui/theme-default": "^6.36.1",
+    "@fkui/vue": "^6.36.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.1",
+    "@histoire/plugin-vue": "^1.0.0-beta.1",
+    "@storybook/addon-a11y": "^10.2.12",
+    "@storybook/addon-docs": "^10.2.12",
+    "@storybook/addon-onboarding": "^10.2.12",
+    "@storybook/addon-vitest": "^10.2.12",
+    "@storybook/preview-api": "^8.6.14",
+    "@storybook/theming": "^8.6.14",
+    "@storybook/vue3-vite": "^10.2.12",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vue/eslint-config-prettier": "10.2.0",
+    "eslint": "9.29.0",
+    "eslint-plugin-storybook": "^10.2.12",
+    "eslint-plugin-vue": "9.33.0",
+    "gh-pages": "6.3.0",
+    "histoire": "^1.0.0-beta.1",
+    "playwright": "^1.58.2",
+    "prettier": "3.6.0",
+    "sass": "1.89.2",
+    "storybook": "^10.2.12",
+    "vite": "^7.3.1",
+    "vitepress": "^1.6.3",
+    "vitest": "^4.0.18",
+    "vue": "^3.5.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pattespatte/ehmds-docs-poc-01.git"
+  },
+  "homepage": "https://github.com/pattespatte/ehmds-docs-poc-01#readme",
+  "bugs": {
+    "url": "https://github.com/pattespatte/ehmds-docs-poc-01/issues"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/ehmds.es.js",
+      "require": "./dist/ehmds.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
