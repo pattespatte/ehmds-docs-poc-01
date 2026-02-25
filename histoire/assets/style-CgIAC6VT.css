@@ -9477,3 +9477,49 @@ to {
 .ehmds-card-footer[data-v-c6c3362a] {
 	text-align: right;
 }
+
+.guides-container[data-v-9a9e3526] {
+  max-width: 800px;
+  padding: 2rem;
+  font-family: var(--ehmds-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  line-height: 1.6;
+  color: var(--ehmds-color-text-primary, #0f172a);
+}
+.guides-container h1[data-v-9a9e3526] {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--ehmds-color-primary, #2563eb);
+}
+.guides-container h2[data-v-9a9e3526] {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--ehmds-color-neutral-200, #e2e8f0);
+  padding-bottom: 0.5rem;
+}
+.guides-container h3[data-v-9a9e3526] {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.guides-container p[data-v-9a9e3526] {
+  margin-bottom: 1rem;
+}
+.guides-container ul[data-v-9a9e3526],
+.guides-container ol[data-v-9a9e3526] {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.guides-container li[data-v-9a9e3526] {
+  margin-bottom: 0.5rem;
+}
+.guides-container code[data-v-9a9e3526] {
+  background: var(--ehmds-color-neutral-100, #f1f5f9);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 0.9em;
+}

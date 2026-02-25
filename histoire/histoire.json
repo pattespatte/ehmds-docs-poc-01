@@ -109,6 +109,29 @@
       ],
       "virtual": false,
       "markdownFile": null
+    },
+    {
+      "id": "src-docs-guides-story-vue",
+      "title": "Guides",
+      "layout": {
+        "type": "single",
+        "iframe": true
+      },
+      "docsOnly": false,
+      "variants": [
+        {
+          "id": "src-docs-guides-story-vue-0",
+          "title": "Design System Guides"
+        }
+      ],
+      "relativePath": "src/docs/Guides.story.vue",
+      "supportPluginId": "vue3",
+      "treePath": [
+        "Documentation",
+        "Guides"
+      ],
+      "virtual": false,
+      "markdownFile": null
     }
   ],
   "markdownFiles": []
