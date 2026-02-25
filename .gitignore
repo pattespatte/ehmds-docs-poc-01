@@ -15,6 +15,9 @@ storybook-static/
 # Claude Code
 .claude/
 
+# Playwright
+.playwright-mcp/
+
 # Compiled Java class files
 *.class
 
