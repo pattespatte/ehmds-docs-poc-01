@@ -1,504 +1,356 @@
-# EHM Design System
+# EHM Design System Documentation PoC
 
-> **Note:** EHMDS is built on top of [FKUI, Försäkringskassan Design System](https://github.com/Forsakringskassan/designsystem). For more details about the underlying design principles and components, see the official FKUI repository.
+> **Proof of Concept** comparing three documentation generators for Vue 3 component libraries: VitePress, Storybook, and Histoire.
+
+This project demonstrates how to set up and use **three parallel documentation systems** for a Vue 3 design system, each with different strengths and use cases.
 
 ## 📑 Table of Contents
 
-- [EHM Design System](#ehm-design-system)
+- [EHM Design System Documentation PoC](#ehm-design-system-documentation-poc)
   - [📑 Table of Contents](#-table-of-contents)
   - [Overview](#overview)
-  - [Features](#features)
+  - [Documentation Tools Comparison](#documentation-tools-comparison)
+  - [Project Structure](#project-structure)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
-    - [Basic Setup](#basic-setup)
-    - [Usage Examples](#usage-examples)
-      - [Global Registration](#global-registration)
-      - [Individual Component Import](#individual-component-import)
-  - [Components](#components)
-    - [Button](#button)
-      - [Props](#props)
-      - [Variants](#variants)
-      - [Example](#example)
-    - [Card](#card)
-  - [Theming](#theming)
-    - [Default Theme](#default-theme)
-    - [Custom Themes](#custom-themes)
-    - [CSS Custom Properties](#css-custom-properties)
-  - [Development](#development)
-    - [Prerequisites](#prerequisites)
     - [Local Development](#local-development)
-    - [Project Structure](#project-structure)
-    - [Available Scripts](#available-scripts)
-  - [Integration Guide](#integration-guide)
-    - [Creating a New Vue App](#creating-a-new-vue-app)
-    - [Installing EHMDS](#installing-ehmds)
-    - [Configuration](#configuration)
-    - [Building Your UI](#building-your-ui)
-  - [How EHMDS Relies on FKUI](#how-ehmds-relies-on-fkui)
-    - [1. **CSS Dependencies Only**](#1-css-dependencies-only)
-    - [2. **Design Token Compatibility**](#2-design-token-compatibility)
-    - [3. **Package Dependencies**](#3-package-dependencies)
-  - [What Happens If You Remove FKUI Entirely?](#what-happens-if-you-remove-fkui-entirely)
-    - [1. **Button Component** ✅](#1-button-component-)
-    - [2. **Card Component** ✅](#2-card-component-)
-    - [3. **Theme System** ✅](#3-theme-system-)
-  - [What the Components Will Look Like Without FKUI](#what-the-components-will-look-like-without-fkui)
-    - [Button Component](#button-component)
-    - [Card Component](#card-component)
-  - [To Remove FKUI Completely](#to-remove-fkui-completely)
-  - [Conclusion](#conclusion)
-  - [Contributing](#contributing)
-  - [Support](#support)
+  - [Documentation Tools](#documentation-tools)
+    - [VitePress](#vitepress)
+    - [Storybook](#storybook)
+    - [Histoire](#histoire)
+  - [Adding Content](#adding-content)
+    - [Component Stories](#component-stories)
+    - [Markdown Documentation](#markdown-documentation)
+  - [Deployment](#deployment)
+    - [GitHub Pages Configuration](#github-pages-configuration)
+  - [Commands Reference](#commands-reference)
+    - [Development Servers](#development-servers)
+    - [Building](#building)
+    - [Deployment](#deployment-1)
+    - [Dependency Management](#dependency-management)
+  - [Architecture](#architecture)
+    - [Component Structure](#component-structure)
+    - [Story Files](#story-files)
+    - [Theme System](#theme-system)
+    - [FKUI Relationship](#fkui-relationship)
   - [License](#license)
 
 ## Overview
 
-EHMDS is a Vue 3 design system built on top of FKUI (Försäkringskassan Design System). It provides enhanced components with additional styling options while maintaining full compatibility with FKUI's design tokens and principles.
+This project is a **documentation generator comparison** that sets up the same Vue 3 design system (EHMDS) across three popular documentation tools:
 
-## Features
+- **VitePress** - Static site generator for content-focused documentation
+- **Storybook** - Component workshop for interactive development and testing
+- **Histoire** - Modern alternative to Storybook with Vue 3-first approach
 
-- **Vue 3 Components**: Modern composition API with full TypeScript support
-- **FKUI Foundation**: Built on the robust FKUI design system
-- **Custom Theming**: Flexible theming system with CSS custom properties
-- **Vite Powered**: Fast development server and optimized production builds
-- **Accessible**: WCAG compliant components with focus management
-- **Responsive**: Mobile-first responsive design patterns
-- **Tree Shakeable**: Import only the components you need
+Each tool has its own strengths, and this project demonstrates how to use them in parallel for comprehensive documentation coverage.
+
+## Documentation Tools Comparison
+
+| Feature | VitePress | Storybook | Histoire |
+|---------|-----------|-----------|----------|
+| **Primary Use** | Content docs | Component development | Component development |
+| **Format** | Markdown | CSF Stories + MDX | Vue Stories |
+| **Interactive** | Limited | Full | Full |
+| **Testing** | None | Built-in (addon-vitest) | None |
+| **Speed** | Fast | Medium | Fast |
+| **Vue 3 Support** | Native | Via Plugin | Native |
+| **Best For** | Guides, API docs | Interactive components | Modern Vue workflows |
+
+## Project Structure
+
+```
+ehmds-docs-poc-01/
+├── src/                          # Vue 3 design system components
+│   ├── components/               # Button.vue, Card.vue
+│   │   ├── Button.stories.js     # Storybook stories
+│   │   ├── Button.story.vue      # Histoire stories
+│   │   └── Card.*
+│   ├── docs/                     # Documentation stories
+│   │   └── Guides.stories.js     # Storybook docs
+│   │   └── Guides.story.vue      # Histoire docs
+│   └── assets/                   # Global styles
+├── docs/                         # VitePress content
+│   ├── .vitepress/               # VitePress config
+│   ├── guide/                    # Guide pages
+│   │   ├── getting-started.md
+│   │   ├── guides.md             # Design guides
+│   │   └── installation.md
+│   └── components/               # Component documentation
+│       ├── button.md
+│       └── card.md
+├── .storybook/                   # Storybook config
+├── histoire.config.ts            # Histoire config
+└── scripts/deploy.sh             # Deployment script
+```
 
 ## Getting Started
 
 ### Installation
 
 ```bash
-# Install from npm (when published)
-npm install @ehmds/design-system
-
-# Or install directly from repository
-npm install git+https://github.com/pattespatte/ehmds-docs-poc-01.git
-```
-
-### Basic Setup
-
-Import and use EHMDS in your Vue 3 application:
-
-```javascript
-// main.js
-import { createApp } from 'vue'
-import EHMDS from '@ehmds/design-system'
-import App from './App.vue'
-
-const app = createApp(App)
-
-// Install with default theme
-app.use(EHMDS)
-
-// Or install with custom theme
-app.use(EHMDS, {
-  theme: {
-    colors: {
-      primary: '#2563eb'
-    }
-  }
-})
-
-app.mount('#app')
-```
-
-### Usage Examples
-
-#### Global Registration
-
-After installing the plugin, all components are available globally:
-
-```vue
-<template>
-  <div>
-    <EhmdsButton label="Click me" variant="ehmds-primary" />
-    <EhmdsCard header="Welcome">
-      <p>Card content goes here</p>
-    </EhmdsCard>
-  </div>
-</template>
-```
-
-#### Individual Component Import
-
-For better tree-shaking, import components individually:
-
-```vue
-<script>
-import { Button, Card } from '@ehmds/design-system'
-
-export default {
-  components: {
-    Button,
-    Card
-  }
-}
-</script>
-```
-
-## Components
-
-### Button
-
-Enhanced button component based on FKUI's button with additional styling options.
-
-#### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | String | `'primary'` | Button variant (includes FKUI variants + EHMDS custom variants) |
-| `size` | String | `'medium'` | Button size: `'small'`, `'medium'`, `'large'` |
-| `label` | String | `''` | Button text content |
-| `disabled` | Boolean | `false` | Disabled state |
-| `rounded` | Boolean | `false` | Apply rounded corners (EHMDS enhancement) |
-| `shadow` | Boolean | `false` | Apply shadow effect (EHMDS enhancement) |
-| `fullWidth` | Boolean | `false` | Make button full width |
-
-#### Variants
-
-**FKUI Variants:** `primary`, `secondary`, `tertiary`, `success`, `warning`, `error`
-
-**EHMDS Custom Variants:** `ehmds-primary`, `ehmds-secondary`, `ehmds-accent`
-
-#### Example
-
-```vue
-<EhmdsButton 
-  variant="ehmds-primary" 
-  size="large"
-  rounded
-  shadow
-  @click="handleClick"
->
-  Enhanced Button
-</EhmdsButton>
-```
-
-### Card
-
-Card component for displaying content with optional header and footer.
-
-```vue
-<EhmdsCard 
-  header="Card Title" 
-  footer="Card Footer" 
-  elevation="medium"
->
-  <p>Card content</p>
-</EhmdsCard>
-```
-
-## Theming
-
-### Default Theme
-
-The default theme includes:
-
-- **Colors**: Primary, secondary, accent, and semantic color palettes
-- **Typography**: Inter font family with responsive type scale
-- **Spacing**: 8px grid system for consistent layouts
-- **Shadows**: Elevation system for depth and hierarchy
-- **Border Radius**: Consistent rounded corner system
-
-### Custom Themes
-
-Create custom themes by extending the default:
-
-```javascript
-import { defaultTheme } from '@ehmds/design-system'
-
-const customTheme = {
-  ...defaultTheme,
-  colors: {
-    ...defaultTheme.colors,
-    primary: '#2563eb',      // FKUI Blue-600
-    primaryLight: '#3b82f6', // FKUI Blue-500
-    primaryDark: '#1d4ed8',  // FKUI Blue-700
-  }
-}
-
-app.use(EHMDS, { theme: customTheme })
-```
-
-### CSS Custom Properties
-
-All theme values are available as CSS custom properties:
-
-```css
-.my-component {
-  background-color: var(--ehmds-color-primary);
-  padding: var(--ehmds-spacing-4);
-  border-radius: var(--ehmds-border-radius-large);
-  box-shadow: var(--ehmds-shadow-medium);
-}
-```
-
-## Development
-
-### Prerequisites
-
-- Node.js 16+
-- npm or yarn
-
-### Local Development
-
-```bash
 # Clone the repository
 git clone https://github.com/pattespatte/ehmds-docs-poc-01.git
-cd ehmds-design-system
+cd ehmds-docs-poc-01
 
 # Install dependencies
 npm install
-
-# Start development server
-npm run dev
 ```
 
-### Project Structure
+### Local Development
 
-```
-src/
-├── components/          # Vue components
-│   ├── Button.vue       # Enhanced button component
-│   └── Card.vue         # Card component
-├── assets/              # Global styles and assets
-│   ├── global.css       # Global CSS with custom properties
-│   └── variables.scss   # SCSS variables and mixins
-├── themes/              # Theme configurations
-│   └── default.js       # Default EHMDS theme
-└── index.js             # Main entry point
-```
-
-### Available Scripts
+Start the documentation tool you want to work with:
 
 ```bash
-npm run build             # Build for production (Vite)
-npm run build:watch       # Build in watch mode
-npm run preview           # Preview production build
-npm run demo              # Start demo app (Vite, demo config)
-npm run demo:preview      # Preview demo app production build
-npm run lint              # Lint code (ESLint for .vue, .js, .ts)
-npm run lint:fix          # Fix linting issues
-npm run docs:dev          # Start local docs server (VitePress)
-npm run docs:build        # Build documentation (VitePress)
-npm run docs:preview      # Preview built documentation
-npm run docs:deploy       # Deploy documentation to GitHub Pages
-npm run update:fkui-deps  # Update FKUI dependencies (runs scripts/update-fkui-deps.js)
+# VitePress - Content documentation
+npm run docs:dev
+
+# Storybook - Component development
+npm run storybook
+
+# Histoire - Alternative component development
+npm run histoire:dev
 ```
 
-- **npm run update:fkui**: Updates FKUI dependencies to the latest compatible versions by running `scripts/update-fkui-deps.js`. Use this to keep EHMDS in sync with upstream FKUI changes.
+All three tools can run simultaneously on different ports:
 
-> **Note:** Some scripts (like `test` and `test:watch`) may only be available if test setup exists in your project.
+- VitePress: `http://localhost:5173`
+- Storybook: `http://localhost:6006`
+- Histoire: `http://localhost:3001`
 
-## Integration Guide
+## Documentation Tools
 
-### Creating a New Vue App
+### VitePress
 
-```bash
-npm init vite@latest my-app -- --template vue
-cd my-app
-npm install
-```
+**Best for:** User guides, API documentation, getting started guides
 
-### Installing EHMDS
+VitePress serves as the **main documentation site** with content-focused pages. It uses Markdown files and provides excellent search, navigation, and SEO.
 
-```bash
-npm install git+https://github.com/pattespatte/ehmds-docs-poc-01.git
-```
+**Location:** `docs/`
 
-### Configuration
-
-Configure your app to use EHMDS with FKUI theme compatibility:
+**Config:** `docs/.vitepress/config.js`
 
 ```javascript
-// main.js
-import { createApp } from 'vue'
-import EHMDS, { defaultTheme } from '@ehmds/design-system'
-import App from './App.vue'
+export default defineConfig({
+  title: 'EHM Design System',
+  description: 'Documentation for EHMDS',
+  base: '/ehmds-docs-poc-01/', // GitHub Pages base path
 
-// Customize theme to match FKUI guidelines
-const customTheme = {
-  ...defaultTheme,
-  colors: {
-    ...defaultTheme.colors,
-    primary: '#2563eb',      // FKUI Blue-600
-    primaryLight: '#3b82f6', // FKUI Blue-500
-    primaryDark: '#1d4ed8',  // FKUI Blue-700
+  themeConfig: {
+    sidebar: {
+      '/guide/': [
+        { text: 'Getting Started', link: '/guide/getting-started' },
+        { text: 'Guides', link: '/guide/guides' }
+      ]
+    }
   }
-}
-
-const app = createApp(App)
-app.use(EHMDS, { theme: customTheme })
-app.mount('#app')
+})
 ```
 
-### Building Your UI
+**Adding content:** Create `.md` files in `docs/guide/` or `docs/components/`
+
+### Storybook
+
+**Best for:** Interactive component development, visual testing, documentation
+
+Storybook provides an **interactive component workshop** with hot-reloading, controls, and add-ons for testing and accessibility.
+
+**Location:** `.storybook/`
+
+**Config:** `.storybook/main.js`
+
+```javascript
+export default {
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: [
+    '@chromatic-com/storybook',
+    '@storybook/addon-vitest',
+    '@storybook/addon-a11y'
+  ],
+  framework: '@storybook/vue3-vite'
+}
+```
+
+**Adding stories:** Create `*.stories.js` files next to components
+
+### Histoire
+
+**Best for:** Modern Vue 3 component development, fast storytelling
+
+Histoire is a **modern alternative to Storybook** built with Vue 3 in mind. It offers a clean interface and fast development experience.
+
+**Config:** `histoire.config.ts`
+
+```typescript
+export default defineConfig({
+  plugins: [HstVue()],
+  setupFile: '/src/histoire-setup.ts',
+  tree: {
+    title: 'EHMDS Design System'
+  },
+  vite: {
+    base: '/ehmds-docs-poc-01/histoire/' // GitHub Pages
+  }
+})
+```
+
+**Adding stories:** Create `*.story.vue` files next to components
+
+## Adding Content
+
+### Component Stories
+
+Each component has parallel story files for both tools:
+
+**Storybook** (`src/components/Button.stories.js`):
+
+```javascript
+export default {
+  title: 'EHMDS/Button',
+  component: EhmdsButton,
+};
+
+export const Primary = {
+  args: {
+    variant: 'ehmds-primary',
+    label: 'Primary Button'
+  }
+};
+```
+
+**Histoire** (`src/components/Button.story.vue`):
 
 ```vue
 <template>
-  <div class="app">
-    <h1>Welcome to EHMDS</h1>
-    
-    <EhmdsButton 
-      label="Get Started" 
-      variant="ehmds-primary" 
-      rounded 
-      shadow 
-    />
-    
-    <EhmdsCard header="Features" elevation="medium">
-      <p>Built on FKUI with enhanced components</p>
-    </EhmdsCard>
-  </div>
+  <Story title="EHMDS/Button">
+    <Variant title="Primary">
+      <EhmdsButton variant="ehmds-primary" label="Primary Button" />
+    </Variant>
+  </Story>
 </template>
-
-<style>
-/* Import FKUI base styles if needed */
-@import "~@fkui/design/dist/styles.css";
-
-.app {
-  padding: 2rem;
-  font-family: var(--ehmds-font-family);
-}
-</style>
 ```
 
-## How EHMDS Relies on FKUI
+### Markdown Documentation
 
-The EHM Design System has a **minimal dependency** on FKUI, which is primarily **cosmetic and structural** rather than functional:
+Add content pages that work across all tools:
 
-### 1. **CSS Dependencies Only**
+1. **VitePress** - Create `.md` files in `docs/`
+2. **Storybook** - Create `*.stories.js` with `render()` functions returning HTML
+3. **Histoire** - Create `*.story.vue` with template content
 
-The main FKUI dependencies are in `src/assets/global.css`:
+Example: Adding a "Guides" page across all three tools:
 
-```css
-@import "@fkui/design/lib/fkui.css";
-@import "@fkui/theme-default/dist/fkui-css-variables.css";
+- **VitePress:** `docs/guide/guides.md` (Markdown)
+- **Storybook:** `src/docs/Guides.stories.js` (JS with template)
+- **Histoire:** `src/docs/Guides.story.vue` (Vue component with styled HTML)
+
+## Deployment
+
+All three documentation systems are deployed to GitHub Pages using a single script:
+
+```bash
+npm run deploy
 ```
 
-### 2. **Design Token Compatibility**
+This runs `scripts/deploy.sh` which:
 
-- The Button component defines `FKUI_VARIANTS` that include standard FKUI button variants: `['primary', 'secondary', 'tertiary', 'success', 'warning', 'error']`
-- The theme system is designed to be "FKUI compatible" but uses its own CSS custom properties
-- No actual FKUI components are imported or used in the Vue components
+1. Builds all three documentation systems
+2. Copies them to respective subdirectories
+3. Publishes to the `gh-pages` branch
 
-### 3. **Package Dependencies**
+**Live URLs:**
 
-The `package.json` includes FKUI packages as dependencies:
+- VitePress: <https://pattespatte.github.io/ehmds-docs-poc-01/>
+- Storybook: <https://pattespatte.github.io/ehmds-docs-poc-01/storybook/>
+- Histoire: <https://pattespatte.github.io/ehmds-docs-poc-01/histoire/>
 
-- `@fkui/date`, `@fkui/design`, `@fkui/logic`, `@fkui/theme-default`, `@fkui/vue`
+### GitHub Pages Configuration
 
-## What Happens If You Remove FKUI Entirely?
+Important: Each tool requires proper base path configuration for GitHub Pages:
 
-**The components will continue to work perfectly!** Here's why:
+- **VitePress:** `base: '/ehmds-docs-poc-01/'` in `docs/.vitepress/config.js`
+- **Histoire:** `vite.base: '/ehmds-docs-poc-01/histoire/'` in `histoire.config.ts`
+- **Storybook:** No base path (deployed to `/storybook/` subdirectory)
 
-### 1. **Button Component** ✅
+## Commands Reference
 
-- **All styling is self-contained** in the component's `<style scoped>` section
-- Uses EHMDS CSS custom properties (e.g., `--ehmds-color-primary`, `--ehmds-border-radius`)
-- FKUI variants are just string constants for validation
-- **No FKUI imports or dependencies** in the actual component logic
+### Development Servers
 
-### 2. **Card Component** ✅
-
-- **Completely self-contained** with its own styling
-- Uses EHMDS CSS custom properties
-- **No FKUI dependencies whatsoever**
-
-### 3. **Theme System** ✅
-
-- The `default.js` theme is completely independent
-- Generates EHMDS-specific CSS variables
-- **No FKUI theme imports or dependencies**
-
-## What the Components Will Look Like Without FKUI
-
-### Button Component
-
-```vue
-<!-- This will work exactly the same -->
-<EhmdsButton variant="primary">Primary Button</EhmdsButton>
-<EhmdsButton variant="ehmds-primary">EHMDS Primary</EhmdsButton>
-<EhmdsButton variant="success" rounded shadow>Success Button</EhmdsButton>
+```bash
+npm run docs:dev          # VitePress dev server
+npm run storybook         # Storybook dev server
+npm run histoire:dev      # Histoire dev server
 ```
 
-**Visual Result**: Identical appearance because:
+### Building
 
-- All colors are defined in EHMDS CSS variables
-- All styling is in the component's scoped styles
-- FKUI variants just map to the same EHMDS color variables
-
-### Card Component
-
-```vue
-<!-- This will work exactly the same -->
-<EhmdsCard title="My Card">
-  <p>Card content</p>
-</EhmdsCard>
+```bash
+npm run docs:build        # Build VitePress
+npm run build-storybook   # Build Storybook
+npm run histoire:build    # Build Histoire
+npm run build:all         # Build all three
 ```
 
-**Visual Result**: Identical appearance because:
+### Deployment
 
-- All styling is self-contained
-- Uses EHMDS design tokens
-- No FKUI dependencies
-
-## To Remove FKUI Completely
-
-You would need to:
-
-1. **Remove FKUI imports from `global.css`**:
-
-```css
-/* Remove these lines */
-@import "@fkui/design/lib/fkui.css";
-@import "@fkui/theme-default/dist/fkui-css-variables.css";
+```bash
+npm run deploy            # Deploy all to GitHub Pages
 ```
 
-2. **Remove FKUI dependencies from `package.json`**:
+### Dependency Management
 
-```json
-// Remove these lines
-"@fkui/date": "^6.9.0",
-"@fkui/design": "^6.9.0", 
-"@fkui/logic": "^6.9.0",
-"@fkui/theme-default": "^6.9.0",
-"@fkui/vue": "^6.9.0"
+```bash
+npm run update:fkui-deps  # Update FKUI dependencies
 ```
 
-3. **Update the demo config** to remove FKUI external dependency
+## Architecture
 
-## Conclusion
+### Component Structure
 
-**EHMDS is essentially a standalone design system** that:
+The demo design system components are located in `src/components/`:
 
-- Uses FKUI as a **design inspiration** and **naming convention**
-- Maintains **FKUI compatibility** for easy migration
-- Has **zero functional dependencies** on FKUI components
-- Will work **identically** with or without FKUI installed
+- **Button.vue** - Enhanced button with FKUI + EHMDS variants
+- **Card.vue** - Card component with elevation system
 
-The FKUI dependency is more of a **branding and compatibility choice** rather than a technical requirement. Your components will look and function exactly the same if you remove FKUI entirely.
+Each component:
 
-## Contributing
+- Uses `<script setup>` with Composition API
+- Has scoped styles with EHMDS CSS custom properties
+- Includes JSDoc comments for prop types
+- Defines variant constants for validation
 
-We welcome contributions! Please follow these steps:
+### Story Files
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+The project maintains **parallel story files** for each documentation tool:
 
-For detailed guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+```
+src/components/
+├── Button.vue              # Component
+├── Button.stories.js       # Storybook stories
+└── Button.story.vue        # Histoire stories
+```
 
-## Support
+### Theme System
 
-- 📚 [Documentation](https://pattespatte.github.io/ehmds-design-system)
-- 🐛 [GitHub Issues](https://github.com/pattespatte/ehmds-docs-poc-01/issues)
-- 💬 [Discussions](https://github.com/pattespatte/ehmds-docs-poc-01/discussions)
-- 📧 Email: <design-system@pattespatte.com>
+The theme system in `src/themes/default.js` defines design tokens:
+
+- Colors (primary, secondary, accent, semantic)
+- Typography (font families, sizes, weights)
+- Spacing (8px grid system)
+- Border radius
+- Shadows
+- Animation/transition values
+
+CSS custom properties are generated via `generateCSSVariables()` and applied globally when the plugin is installed.
+
+### FKUI Relationship
+
+EHMDS has minimal dependency on FKUI (Försäkringskassan Design System):
+
+- `src/assets/global.css` imports FKUI base styles
+- Components define `FKUI_VARIANTS` for naming compatibility
+- All styling is self-contained using EHMDS CSS variables
+- The system functions identically without FKUI (only CSS imports need removal)
 
 ## License
 
