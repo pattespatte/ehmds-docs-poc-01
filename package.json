@@ -15,14 +15,14 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "update:fkui-deps": "node scripts/update-fkui-deps.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "histoire:dev": "histoire dev",
     "histoire:build": "histoire build",
     "histoire:preview": "histoire preview",
     "build:all": "npm run docs:build && npm run build-storybook && npm run histoire:build",
-    "deploy": "bash scripts/deploy.sh"
+    "deploy": "bash scripts/deploy.sh",
+    "update:fkui-deps": "node scripts/update-fkui-deps.js"
   },
   "keywords": [
     "vue",
