@@ -9,9 +9,9 @@ export default defineConfig({
   tree: {
     title: 'EHMDS Design System',
   },
-  // GitHub Pages base path
-  base: '/ehmds-docs-poc-01/histoire/',
   vite: {
-    // Vite config for Histoire
+    // GitHub Pages base path for Histoire
+    // https://histoire.dev/reference/config.html#vite
+    base: '/ehmds-docs-poc-01/histoire/',
   },
 })
