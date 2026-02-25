@@ -1,0 +1,115 @@
+{
+  "stories": [
+    {
+      "id": "src-components-button-story-vue",
+      "title": "Button",
+      "layout": {
+        "type": "single",
+        "iframe": true
+      },
+      "docsOnly": false,
+      "variants": [
+        {
+          "id": "src-components-button-story-vue-0",
+          "title": "EHMDS Primary"
+        },
+        {
+          "id": "src-components-button-story-vue-1",
+          "title": "EHMDS Secondary"
+        },
+        {
+          "id": "src-components-button-story-vue-2",
+          "title": "EHMDS Accent"
+        },
+        {
+          "id": "src-components-button-story-vue-3",
+          "title": "FKUI Primary"
+        },
+        {
+          "id": "src-components-button-story-vue-4",
+          "title": "FKUI Secondary"
+        },
+        {
+          "id": "src-components-button-story-vue-5",
+          "title": "FKUI Tertiary"
+        },
+        {
+          "id": "src-components-button-story-vue-6",
+          "title": "Sizes"
+        },
+        {
+          "id": "src-components-button-story-vue-7",
+          "title": "Rounded"
+        },
+        {
+          "id": "src-components-button-story-vue-8",
+          "title": "With Shadow"
+        },
+        {
+          "id": "src-components-button-story-vue-9",
+          "title": "Full Width"
+        },
+        {
+          "id": "src-components-button-story-vue-10",
+          "title": "Disabled"
+        },
+        {
+          "id": "src-components-button-story-vue-11",
+          "title": "Loading"
+        },
+        {
+          "id": "src-components-button-story-vue-12",
+          "title": "All Variants"
+        }
+      ],
+      "relativePath": "src/components/Button.story.vue",
+      "supportPluginId": "vue3",
+      "treePath": [
+        "EHMDS",
+        "Button"
+      ],
+      "virtual": false,
+      "markdownFile": null
+    },
+    {
+      "id": "src-components-card-story-vue",
+      "title": "Card",
+      "layout": {
+        "type": "single",
+        "iframe": true
+      },
+      "docsOnly": false,
+      "variants": [
+        {
+          "id": "src-components-card-story-vue-0",
+          "title": "Basic"
+        },
+        {
+          "id": "src-components-card-story-vue-1",
+          "title": "No Title"
+        },
+        {
+          "id": "src-components-card-story-vue-2",
+          "title": "With Footer"
+        },
+        {
+          "id": "src-components-card-story-vue-3",
+          "title": "Custom Styled"
+        },
+        {
+          "id": "src-components-card-story-vue-4",
+          "title": "Card Grid"
+        }
+      ],
+      "relativePath": "src/components/Card.story.vue",
+      "supportPluginId": "vue3",
+      "treePath": [
+        "EHMDS",
+        "Card"
+      ],
+      "virtual": false,
+      "markdownFile": null
+    }
+  ],
+  "markdownFiles": []
+}
